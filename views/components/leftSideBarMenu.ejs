@@ -1,0 +1,13 @@
+<div class="menu">
+    <ul class="list">
+        <% menu.forEach(function(item){ %>
+        <% if (item.type == 'header') { %>
+        <%- include('leftSideBarMenuIHeaderItem', {item: item}); %>
+        <% } %>
+        <% if (item.type == 'item') { %>
+        <%- include('leftSideBarMenuItem', {item: item}); %>
+        <% } %>
+        <% }); %>
+
+    </ul>
+</div>

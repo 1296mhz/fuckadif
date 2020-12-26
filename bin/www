@@ -1,0 +1,131 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('logogo-backend:server');
+var http = require('http');
+// const mongoose = require('mongoose');
+const Promise = require('bluebird');
+//const MongoClient = require("mongodb").MongoClient;
+//var MongoClient = Promise.promisifyAll(require('mongodb').MongoClient);
+//const objectId = require("mongodb").ObjectID;
+var MongoClient = require('mongodb').MongoClient;
+
+var url = 'mongodb://localhost:27017/logoo';
+var port = normalizePort(process.env.PORT || '3000');
+let db, m, client;
+app.set('port', port);
+// const main = async () => {
+//   client = await MongoClient.connect(url, { useUnifiedTopology: true })
+//   db = await client.db('adifs');
+//   return  db.collection("asd");
+ // m = name => db.collection(name)
+  // db.news = db.collection('news')
+  // db.users = db.collection('users')
+  // let ret = await db.collection('posts').aggregate([
+  //   { $lookup: { from: 'users', localField: 'user_id', foreignField: 'id', as: 'user' } },
+  //   { $unwind: '$user' },
+  //   { $unwind: '$property_ids' },
+  //   { $lookup: { from: 'properties', localField: 'property_ids', foreignField: 'id', as: 'properties' } },
+
+  //   // {$unwind: '$properties'},
+  //   { $limit: 1 }
+  // ]).toArray()
+
+
+
+  // let ret = await Post.query()
+
+  // console.log(ret);
+  // db.news.update({}, {$rename: {categoyIds: 'categoryIds'}})
+  // db.collection('news').updateMany({id: {$lt: 5}}, {$set: {categoyIds: [1,2,3]}})
+  // db.collection('news').updateMany({id: {$gte: 5}}, {$set: {categoyIds: [3,4,5]}})
+
+
+// }
+// m = main();
+
+
+  /**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+
+
+
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+  console.log(`App started on port ${port}`)
+
+
+
+
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}

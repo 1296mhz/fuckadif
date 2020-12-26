@@ -1,0 +1,8 @@
+<div class="row clearfix">
+   
+    <% widgets.forEach(function(widget) { %>
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" <%= widget.id %>>
+        <%- include('../components/widget', { widget: widget }); %>
+      </div>
+      <% }); %>
+</div>
